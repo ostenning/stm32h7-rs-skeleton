@@ -1,0 +1,57 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Cargo build debug",
+      "type": "shell",
+      "command": "cargo",
+      "args": ["build"],
+      "problemMatcher": ["$rustc"],
+      "group": "build"
+    },
+    {
+      "label": "Cargo build release",
+      "type": "shell",
+      "command": "cargo",
+      "args": ["build", "--release"],
+      "problemMatcher": ["$rustc"],
+      "group": "build"
+    },
+    {
+      "label": "Build binary release",
+      "type": "shell",
+      "command": "arm-none-eabi-objcopy",
+      "args": [
+        "--output-target",
+        "binary",
+        "${workspaceFolder}/target/thumbv7em-none-eabihf/release/skeleton",
+        "${workspaceFolder}/target/thumbv7em-none-eabihf/release/skeleton.bin"
+      ],
+      "problemMatcher": ["$rustc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": "Cargo build release"
+    },
+    {
+      "label": "Build binary debug",
+      "type": "shell",
+      "command": "arm-none-eabi-objcopy",
+      "args": [
+        "--output-target",
+        "binary",
+        "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/skeleton",
+        "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/skeleton.bin"
+      ],
+      "problemMatcher": ["$rustc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": "Cargo build debug"
+    }
+  ]
+}

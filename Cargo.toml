@@ -1,0 +1,29 @@
+[package]
+authors = ["yourname <your@email.com>"]
+edition = "2018"
+readme = "README.md"
+name = "skeleton"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "=0.7.2"
+cortex-m-rt = { version = "0.6.13", features = ["device"] }
+cortex-m-semihosting = { version = "0.3.5" }
+cortex-m-log = { version = "~0.6", features = ["itm", "semihosting", "log-integration"] }
+panic-halt = "=0.2.0"
+log = "0.4.11"
+panic-semihosting = { version = "0.5.3" }
+stm32h7xx-hal = { version="0.8.0", features = ["stm32h743v", "rt", "rtc"] }
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+
+# this lets you use `cargo fix`!
+[[bin]]
+name = "skeleton"
+test = false
+bench = false
+
+[profile.release]
+opt-level = 3 # turn on maximum optimizations. We only have 64kB
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
